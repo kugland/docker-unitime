@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  unitime:
+    build:
+      context: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - "./unitime.properties:/etc/default/unitime.properties:ro"
+
+  mysql:
+    image: mysql/mysql-server
+    environment:
+      MYSQL_DATABASE: timetable
+      MYSQL_USER: timetable
+      MYSQL_PASSWORD: ZGdjDbzT5Ttx8pYecFjBcwe3kVPcPBHx
+    restart: always
+    volumes:
+      - "./schema.sql:/docker-entrypoint-initdb.d/10-schema.sql"
+      - "./blank-data.sql:/docker-entrypoint-initdb.d/20-blank-data.sql"
+      - "./mysql:/var/lib/mysql"
+
+volumes:
+  mysql:
