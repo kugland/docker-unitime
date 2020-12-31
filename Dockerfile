@@ -1,9 +1,15 @@
 FROM tomcat:jdk11-corretto
 
-ENV UNITIME_PKG="https://github.com/UniTime/unitime/releases/download/v4.5.124/unitime-4.5_bld124.zip" \
-    UNITIME_MD5SUM="3f95cb2044ea744f4df3d8509a65d13a" \
-    MYSQL_CONNECTOR_PKG="https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22.zip" \
-    MYSQL_CONNECTOR_MD5SUM="2aaf6a62a2f3330730ec77b1c025646f"
+ARG VCS_REF
+ARG BUILD_DATE
+
+LABEL org.label-schema.schema-version="1.0" \
+      org.label-schema.description="UniTime is a comprehensive educational scheduling system." \
+      org.label-schema.name="kugland/unitime" \
+      org.label-schema.url="https://hub.docker.com/r/kugland/unitime" \
+      org.label-schema.vcs-url="https://github.com/kugland/docker-unitime" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-ref=$VCS_REF
 
 COPY ./install-unitime.sh /tmp/install-unitime.sh
 RUN sh /tmp/install-unitime.sh
